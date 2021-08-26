@@ -56,10 +56,12 @@ class _DemosState extends State<Demos> with TickerProviderStateMixin {
     return names;
   }
 
+  int value = 0;
+
   @override
   void initState() {
     _controller = TabController(length: 12, vsync: this);
-
+    value = 0;
     circle = CircleWaveCounter(
         vsync: this,
         initialCounter: 0,
@@ -153,6 +155,7 @@ class _DemosState extends State<Demos> with TickerProviderStateMixin {
                   child: Icon(Icons.remove),
                   onPressed: () {
                     setState(() {
+                      value = --value;
                       block.decrementCounter();
                       disk.decrementCounter();
                       wave.decrementCounter();
@@ -175,6 +178,7 @@ class _DemosState extends State<Demos> with TickerProviderStateMixin {
                   child: Icon(Icons.add),
                   onPressed: () {
                     setState(() {
+                      value = ++value;
                       block.incrementCounter();
                       disk.incrementCounter();
                       wave.incrementCounter();
@@ -191,6 +195,18 @@ class _DemosState extends State<Demos> with TickerProviderStateMixin {
                   },
                 ),
               ],
+            ),
+          ),
+          Center(
+            child: Container(
+              color: Colors.black45,
+              width: 200,
+              height: 200,
+              child: Text(
+                '$value',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
             ),
           )
         ],
